@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('item-form');
     const itemsContainer = document.getElementById('items-container');
+    const clearButton = document.getElementById('clear-btn');
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -42,6 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsDataURL(imageFile);
     });
 
+    
+    clearButton.addEventListener('click', () => {
+        form.reset(); 
+    });
+
     async function loadItems() {
         try {
             const response = await fetch('http://localhost:4000/items');
@@ -61,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         itemDiv.innerHTML = `
             <img src="${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
-            <p>${item.price}</p>
+            <p>$${item.price}</p>
             <button data-id="${item.id}">Eliminar</button>
         `;
         itemsContainer.appendChild(itemDiv);
